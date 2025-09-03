@@ -10,4 +10,5 @@ class Character:
         self.mental_health = self.inteligence + self.charisma
 
         self.skill_points = self.inteligence + self.strength
+
         self.items_points = self.dexterity + self.charisma
