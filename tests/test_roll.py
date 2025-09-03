@@ -56,3 +56,41 @@ def test_normalize(stats: list[tuple[float, int]], normalized: list[tuple[float,
     roll = Roll(stats)
     assert roll.normalize().get_stats() == normalized
     assert roll.normalize().get_size() == 1.0
+
+
+def test_roll_returns_value_from_events(monkeypatch):
+    # Patch random.choices to always return the first value
+    monkeypatch.setattr("random.choices", lambda values, weights, k: [values[0]])
+    stats = [(1, 10), (2, 20), (3, 30)]
+    roll = Roll(stats)
+    result = roll.roll()
+    assert result == 10
+
+
+def test_roll_distribution(monkeypatch):
+    # Simulate random.choices to return values based on weights
+    stats = [(1, 10), (3, 20)]
+    roll = Roll(stats)
+    # We'll run roll many times and check the distribution
+    results = []
+    for _ in range(1000):
+        results.append(roll.roll())
+    # Since weights are 1:3, expect roughly 1/4 to be 10, 3/4 to be 20
+    count_10 = results.count(10)
+    count_20 = results.count(20)
+    ratio = count_20 / (count_10 + count_20)
+    assert 0.70 < ratio < 0.80  # Allow some randomness
+
+
+def test_roll_with_single_event():
+    stats = [(5, 42)]
+    roll = Roll(stats)
+    for _ in range(10):
+        assert roll.roll() == 42
+
+
+def test_roll_with_zero_weights():
+    stats = [(0, 1), (0, 2), (5, 3)]
+    roll = Roll(stats)
+    for _ in range(10):
+        assert roll.roll() == 3

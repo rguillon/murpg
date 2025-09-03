@@ -1,3 +1,4 @@
+import random
 from collections import defaultdict
 
 
@@ -26,3 +27,8 @@ class Roll:
                 combined_events[event1 + event2] += prob1 * prob2
 
         return Roll([(prob, event) for event, prob in combined_events.items()])
+
+    # Choose a value based on the weighted probabilities in self.events
+    def roll(self) -> float:
+        weights, values = zip(*self.events)
+        return random.choices(values, weights=weights, k=1)[0]  # noqa: S311
