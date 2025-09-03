@@ -1,18 +1,28 @@
-class Roll:
-    def __init__(self, events: list[tuple[int, float]]):
-        self.events: list[tuple[int, float]] = events
+from collections import defaultdict
 
-    def getevents(self) -> list[tuple[int, float]]:
+
+class Roll:
+    def __init__(self, events: list[tuple[float, int]]):
+        self.events: list[tuple[float, int]] = events
+
+    def get_stats(self) -> list[tuple[float, int]]:
         return self.events
 
-    def get_esperance(self) -> float:
-        sum_events = sum(prob for prob, _ in self.events)
-        return sum(event * prob for prob, event in self.events) / sum_events if sum_events > 0 else 0.0
+    def normalize(self) -> "Roll":
+        total = self.get_size()
+        normal = [(event / total, prob) for event, prob in self.events]
+        return Roll(normal)
 
-    def add(self, other: "Roll"):
-        # Implement the rolling logic here
-        for event, rolls in other.events.items():
-            if event in self.events:
-                self.events[event].extend(rolls)
-            else:
-                self.events[event] = rolls
+    def get_esperance(self) -> float:
+        return sum(event * prob for prob, event in self.events) / self.get_size() if self.get_size() > 0 else 0.0
+
+    def get_size(self) -> float:
+        return sum(prob for prob, _ in self.events)
+
+    def __add__(self, other: "Roll") -> "Roll":
+        combined_events = defaultdict(int)
+        for prob1, event1 in self.events:
+            for prob2, event2 in other.get_stats():
+                combined_events[event1 + event2] += prob1 * prob2
+
+        return Roll([(prob, event) for event, prob in combined_events.items()])
