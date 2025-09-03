@@ -6,7 +6,7 @@
 [![Commit activity](https://img.shields.io/github/commit-activity/m/rguillon/murpg)](https://img.shields.io/github/commit-activity/m/rguillon/murpg)
 [![License](https://img.shields.io/github/license/rguillon/murpg)](https://img.shields.io/github/license/rguillon/murpg)
 
-Minimalist tabletop RPG rules system
+Minimalist tabletop RPG rules  s ystem
 
 - **Github repository**: <https://github.com/rguillon/murpg/>
 - **Documentation** <https://rguillon.github.io/murpg/>
