@@ -4,7 +4,9 @@
 [![Build status](https://img.shields.io/github/actions/workflow/status/rguillon/murpg/main.yml?branch=main)](https://github.com/rguillon/murpg/actions/workflows/main.yml?query=branch%3Amain)
 [![codecov](https://codecov.io/gh/rguillon/murpg/branch/main/graph/badge.svg)](https://codecov.io/gh/rguillon/murpg)
 [![Commit activity](https://img.shields.io/github/commit-activity/m/rguillon/murpg)](https://img.shields.io/github/commit-activity/m/rguillon/murpg)
+
 [![License](https://img.shields.io/github/license/rguillon/murpg)](https://img.shields.io/github/license/rguillon/murpg)
+
 
 Minimalist tabletop RPG rules system
 
